@@ -281,25 +281,27 @@ const Home = () => {
             width: '100%',
             maxWidth: '900px',
             zIndex: 2,
+            position: 'relative' // Essential for positioning the glow
         }}>
+            {/* Decorative Glow - Moved BEHIND the glass panel for backdrop-filter to work */}
+            <div style={{
+                position: 'absolute',
+                top: '-50%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '600px',
+                height: '600px',
+                background: 'radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, rgba(0,0,0,0) 70%)', // Cyan Glow
+                zIndex: -1,
+                pointerEvents: 'none'
+            }} />
+
             <div className="fade-in glass-panel" style={{
                 borderRadius: '24px',
                 padding: '3rem',
                 position: 'relative',
                 overflow: 'hidden'
             }}>
-                {/* Decorative Glow */}
-                <div style={{
-                    position: 'absolute',
-                    top: '-50%',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '600px',
-                    height: '600px',
-                    background: 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(0,0,0,0) 70%)',
-                    zIndex: -1,
-                    pointerEvents: 'none'
-                }} />
 
                 <div className="app-header">
                     <h1 style={{
@@ -355,7 +357,7 @@ const Home = () => {
                                     name="language"
                                     value={formData.language}
                                     onChange={handleInputChange}
-                                    style={{ ...inputStyle, borderColor: 'var(--primary-color)', background: 'rgba(139, 92, 246, 0.1)' }}
+                                    style={{ ...inputStyle, borderColor: 'var(--primary-color)', background: 'rgba(6, 182, 212, 0.1)' }}
                                     onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
                                     onBlur={(e) => e.target.style.borderColor = 'var(--primary-color)'}
                                     required
@@ -775,7 +777,7 @@ const buttonStyle = {
     letterSpacing: '0.02em',
     cursor: 'pointer',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: '0 4px 15px rgba(236, 72, 153, 0.3)'
+    boxShadow: '0 4px 15px rgba(6, 182, 212, 0.3)'
 };
 
 export default Home;

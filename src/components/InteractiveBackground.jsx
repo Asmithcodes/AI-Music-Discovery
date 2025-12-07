@@ -93,8 +93,8 @@ const InteractiveBackground = () => {
 
             // Gradient background
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#050510');
-            gradient.addColorStop(1, '#1a1a2e');
+            gradient.addColorStop(0, '#020617');
+            gradient.addColorStop(1, '#0f172a');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
