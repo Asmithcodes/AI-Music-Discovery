@@ -126,4 +126,36 @@ select option {
     width: 100%;
     justify-content: space-between;
   }
+
+  /* Header Optimization */
+  .app-header {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    margin-bottom: 2rem !important;
+  }
+
+  .spotify-status {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    align-self: center;
+    margin-bottom: 1rem;
+    transform: none !important;
+  }
+}
+
+.app-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.spotify-status {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
 }
