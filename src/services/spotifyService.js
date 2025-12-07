@@ -1,10 +1,11 @@
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 // IMPORTANT: Add BOTH of these to your Spotify Dashboard Redirect URIs:
-// 1. http://localhost:5173/callback
-// 2. https://asmithcodes.github.io/AI-Music-Discovery/callback
+// 1. http://localhost:5173/
+// 2. https://asmithcodes.github.io/AI-Music-Discovery/
 const REDIRECT_URI = import.meta.env.PROD
-    ? "https://asmithcodes.github.io/AI-Music-Discovery/callback"
-    : "http://localhost:5173/callback";
+    ? "https://asmithcodes.github.io/AI-Music-Discovery/"
+    : "http://localhost:5173/";
+
 const SCOPES = [
     "playlist-modify-public",
     "playlist-modify-private",
