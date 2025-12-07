@@ -590,7 +590,7 @@ const Home = () => {
                     </form>
                 ) : (
                     <div className="fade-in">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                        <div className="result-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                             <div>
                                 <h2 style={{ fontSize: '1.8rem', fontWeight: '700' }}>Your Mix</h2>
                                 {exportSuccess && <p style={{ color: '#1DB954', fontSize: '0.9rem', marginTop: '0.5rem' }}>{exportSuccess}</p>}
@@ -638,11 +638,10 @@ const Home = () => {
 
                         <div style={{ display: 'grid', gap: '1rem' }}>
                             {recommendations.map((song, index) => (
-                                <div key={index} style={{
-                                    background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%)',
-                                    border: '1px solid var(--glass-border)',
+                                <div key={index} className="glass-panel" style={{
                                     borderRadius: '16px',
                                     padding: '1.5rem',
+                                    transition: 'all 0.3s ease',
                                     transition: 'all 0.3s ease',
                                     cursor: 'default',
                                     position: 'relative',

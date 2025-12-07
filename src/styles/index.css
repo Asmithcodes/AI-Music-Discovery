@@ -7,7 +7,7 @@
   --accent-color: #10b981;
 
   /* High Visibility Glass Variables */
-  --glass-bg: rgba(30, 30, 45, 0.7);
+  --glass-bg: rgba(30, 30, 45, 0.5);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-highlight: rgba(255, 255, 255, 0.1);
   --input-bg: rgba(0, 0, 0, 0.4);
@@ -92,4 +92,38 @@ body {
 select option {
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .glass-panel {
+    padding: 1.2rem !important;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  /* Helper class for button grouping on mobile */
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-group button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Helper class for result header stack */
+  .result-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .result-header>div:last-child {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
