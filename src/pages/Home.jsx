@@ -712,7 +712,7 @@ const Home = () => {
                                     flex: 1,
                                     background: 'rgba(255, 255, 255, 0.1)',
                                     border: '1px solid var(--glass-border)',
-                                    opacity: loadingMore ? 0.7 : 1,
+                                    opacity: loadingMore ? 0.3 : 1,
                                     cursor: loadingMore ? 'wait' : 'pointer'
                                 }}
                             >
