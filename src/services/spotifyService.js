@@ -105,19 +105,6 @@ const sha256 = async (plain) => {
 };
 
 const base64encode = (input) => {
-    return btoa(String.fromCharCode(...new Uint8Array(input)))
-        .replace(/=/g, '')
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_');
-};
-
-export const getLoginUrl = async () => {
-    const codeVerifier = generateRandomString(64);
-    const hashed = await sha256(codeVerifier);
-    const codeChallenge = base64encode(hashed);
-
-    // Store verifier for the callback
-    window.sessionStorage.setItem('code_verifier', codeVerifier);
 
     const params = {
         response_type: 'code',
