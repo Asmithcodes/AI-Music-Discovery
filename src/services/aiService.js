@@ -2,15 +2,22 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
+const MODEL_PRIMARY = "gemini-2.5-flash";
+const MODEL_FALLBACK = "gemini-2.5-flash-lite";
+
+// Helper to generate content with specific model
+const generateWithModel = async (key, modelName, prompt) => {
+  const genAI = new GoogleGenerativeAI(key);
+  const model = genAI.getGenerativeModel({ model: modelName });
+  const result = await model.generateContent(prompt);
+  return result;
+};
+
 export const generateRecommendations = async (formData, customKey = null) => {
   const key = customKey || API_KEY;
   if (!key) {
     throw new Error("API Key is missing. Please provide a valid Gemini API Key.");
   }
-
-  const genAI = new GoogleGenerativeAI(key);
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
-
 
   // robustly handle "Other" selections
   const genre = formData.genre === 'Other' ? formData.custom_genre : formData.genre;
@@ -56,14 +63,31 @@ export const generateRecommendations = async (formData, customKey = null) => {
   `;
 
   try {
-    const result = await model.generateContent(prompt);
+    console.log(`Attempting generation with PRIMARY model: ${MODEL_PRIMARY}`);
+    const result = await generateWithModel(key, MODEL_PRIMARY, prompt);
     const response = await result.response;
     const text = response.text();
-    // Clean up potential markdown code blocks if the model ignores the instruction
     const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
     return JSON.parse(cleanedText);
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    throw error;
+    // Check for Quota Exceeded (429) catch-all or specific Google API error structure
+    const isQuotaError = error.message?.includes('429') || error.status === 429;
+
+    if (isQuotaError) {
+      console.warn(`Quota exceeded for ${MODEL_PRIMARY}. Falling back to ${MODEL_FALLBACK}...`);
+      try {
+        const result = await generateWithModel(key, MODEL_FALLBACK, prompt);
+        const response = await result.response;
+        const text = response.text();
+        const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        return JSON.parse(cleanedText);
+      } catch (fallbackError) {
+        console.error(`Fallback model ${MODEL_FALLBACK} also failed:`, fallbackError);
+        throw fallbackError; // Re-throw if even fallback fails
+      }
+    }
+
+    console.error("Gemini API Error (Primary):", error);
+    throw error; // Re-throw non-quota errors immediately
   }
 };
